@@ -2,8 +2,8 @@
 
 [![][zhang-logo]][zhang-logo-large]
 
-[zhang-logo]: resources/images/Zhang_Heng-2-250x.pn
-[zhang-logo-large]: resources/images/Zhang_Heng-2-600x.pn
+[zhang-logo]: resources/images/Zhang_Heng-2-250x.png
+[zhang-logo-large]: resources/images/Zhang_Heng-2-600x.png
 
 *An implementation of the Erlang process model in Clojure core.async*
 
@@ -14,8 +14,8 @@
 * [Documentation](#documentation-)
 * [Usage](#usage-)
 * [Languages and Frameworks](#languages-and-frameworks-)
-  * [Erlang, JInterface, and Clojang](#usage-)
-  * [Akka/Okku & Quasar/Pulsar](#usage-)
+  * [Erlang, JInterface, & Clojang](#erlang-jinterface--clojang-)
+  * [Akka/Okku & Quasar/Pulsar](#akkaokku--quasarpulsar-)
 * [License](#license-)
 
 
@@ -39,7 +39,7 @@ TBD
 TBD
 
 
-### Erlang, JInterface, and Clojang [&#x219F;](#table-of-contents)
+### Erlang, JInterface, & Clojang [&#x219F;](#table-of-contents)
 
 TBD
 
