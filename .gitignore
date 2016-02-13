@@ -7,5 +7,8 @@ pom.xml.asc
 *.class
 /.lein-*
 /.nrepl-port
-.hgignore
-.hg/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+docs/build
