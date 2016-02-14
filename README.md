@@ -45,7 +45,9 @@ How processes register with a publication mechanism and how they communicate wit
 
 ## Documentation [&#x219F;](#table-of-contents)
 
-TBD
+Documentation for zhang is regularly generated and made available here:
+
+* http://oubiwann.github.io/zhang/current
 
 
 ## Usage [&#x219F;](#table-of-contents)
