@@ -12,4 +12,5 @@ pom.xml.asc
 .lein-plugins/
 .lein-failures
 docs/build
+docs/master/current
 *.xcf
