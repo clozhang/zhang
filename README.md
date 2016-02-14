@@ -41,7 +41,7 @@ Desired features include:
 * pattern matching (core.match) and selective receive
 * process registration hooks (in order to support arbitrary publishing mechanisms)
 
-How processes register with a publication mechanism and how they communicate with each other (either locally or remotely) is beyond the scope of the zhang library. As an example, the Clojang library (which intends to use zhang) will provide implementation details for these -- it just needs an underlying process model amenable to its implementation goals).
+How processes register with a publication mechanism and how they communicate with each other (either locally or remotely) is beyond the scope of the zhang library. As an example, the Clojang library (which intends to use zhang) will provide implementation details for these -- it just needs an underlying process model amenable to its implementation goals.
 
 ## Documentation [&#x219F;](#table-of-contents)
 
