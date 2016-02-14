@@ -3,8 +3,8 @@
 
   Mostly this involves replacing:
 
-  * ``<!`` variants with ``take*``
-  * ``>!`` with ``put*``
+  * ``<!`` variants with ``receive*``
+  * ``>!`` with ``send*``
   * ``alt*`` with ``select*``, and
   * ``go*`` with ``spawn*``.
 
@@ -12,35 +12,35 @@
   zhang.async
   (:require [clojure.core.async :as a]
             [potemkin :refer [import-vars]])
-  (:refer-clojure :exclude [into map merge reduce select take]))
+  (:refer-clojure :exclude [into map merge reduce select send take]))
 
-(def take
+(def receive
   "
   Alias for ``core.async/<!`` - takes a val from port.
 
   ```
-  (take port)
+  (receive port)
   ```
 
   Must be called inside a ``(spawn ...)`` block. Will return ``nil`` if closed.
   Will park if nothing is available."
   #'a/<!)
 
-(def take-blocking
+(def receive-blocking
   "Alias for ``core.async/<!!`` - takes a val from port.
 
   ```
-  (take-blocking port)
+  (receive-blocking port)
   ```
 
   Will return ``nil`` if closed. Will block if nothing is available."
   #'a/<!!)
 
-(def put
+(def send
   "Alias for ``core.async/>!`` - puts a val into port.
 
   ```
-  (put val port)
+  (send val port)
   ```
 
   ``nil`` values are not allowed. Must be called inside a ``(spawn ...)``
@@ -48,11 +48,11 @@
   unless port is already closed."
   #'a/>!)
 
-(def put-blocking
+(def send-blocking
   "Alias for ``core.async/>!!`` - puts a val into port.
 
   ```
-  (put-blocking val port)
+  (send-blocking val port)
   ```
 
   ``nil`` values are not allowed. Will block if no buffer space is available.
@@ -69,9 +69,9 @@
 
   Must be called inside a ``(spawn ...)`` block. ports is a vector of
   channel endpoints, which can be either a channel to take from or a
-  vector of ``[channel-to-put-to val-to-put]``, in any combination.
-  Takes will be made as if by ``(take ...)``, and puts will be made as
-  if by ``(put ...)``."
+  vector of ``[channel-to-send-to val-to-send]``, in any combination.
+  Takes will be made as if by ``(receive ...)``, and puts will be made as
+  if by ``(send ...)``."
   #'a/alts!)
 
 (def select-blocking
@@ -82,8 +82,8 @@
   ```
 
   Like ``select``, except takes will be made
-  as if by ``(take-blocking ...)``, and puts will be made as if by
-  ``(put-blocking ...)``. A call will block until completed; not intended
+  as if by ``(receive-blocking ...)``, and puts will be made as if by
+  ``(send-blocking ...)``. A call will block until completed; not intended
   for use in ``(spawn ...)`` blocks."
   #'a/alts!!)
 
@@ -132,7 +132,7 @@
   ```
 
   Additionally, any visible calls to
-  ``put``, ``take``, and ``select*`` channel operations within the body will
+  ``send``, ``receive``, and ``select*`` channel operations within the body will
   block (if necessary) by 'parking' the calling thread rather than tying up an
   OS thread. Upon completion of the operation, the body will be resumed."
   #'a/go)
@@ -147,18 +147,34 @@
   Like ``(spawn (loop ...))``"
   #'a/go-loop)
 
-(def take-n
-  "Alias for ``core.async/take``.
+(def receive!
+  "Alias for ``core.async/take!``.
 
   ```
-  (take-n n ch)
-  (take-n n ch buf-or-n)
+  (receive! port fn1)
+  (receive! port fn1 on-caller?)
   ```
 
-  Returns a channel that will return, at most,
-  ``n`` items from ``ch``. After ``n`` items have been returned, or ``ch`` has
-  been closed, the return channel will close."
-  #'a/take)
+  Asynchronously takes a val from ``port``, passing to ``fn1``. Will pass ``nil``
+  if closed. If ``on-caller?`` (default ``true``) is ``true``, and value is
+  immediately available, will call ``fn1`` on calling thread."
+  #'a/take!)
+
+(def send!
+  "Alias for ``core.async/put!``.
+
+  ```
+  (send! port val)
+  (send! port val fn1)
+  (send! port val fn1 on-caller?)
+  ```
+
+  Asynchronously puts a val into ``port``, calling ``fn1`` (if supplied) when
+  complete, passing ``false`` iff ``port`` is already closed. ``nil`` values are
+  not allowed. If ``on-caller?`` (default ``true``) is ``true``, and the put is
+  immediately accepted, will call ``fn1`` on calling thread.  Returns
+  ``true`` unless port is already closed."
+  #'a/put!)
 
 (import-vars
   [a
@@ -191,14 +207,14 @@
    poll!
    promise-chan
    pub
-   put!
+   ;; put!
    reduce
    sliding-buffer
    solo-mode
    split
    sub
-   ;; take
-   take!
+   take
+   ;; take!
    tap
    thread
    thread-call
