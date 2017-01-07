@@ -1,11 +1,12 @@
 # 張 zhang
 
-[![][zhang-logo]][zhang-logo-large]
-
-[zhang-logo]: resources/images/Zhang_Heng-2-250x.png
-[zhang-logo-large]: resources/images/Zhang_Heng-2-600x.png
+[![Build Status][travis-badge]][travis]
+[![Dependencies Status][deps-badge]][deps]
+[![Clojars Project][clojars-badge]][clojars]
 
 *An implementation of the Erlang process model in Clojure core.async*
+
+[![][logo]][logo-large]
 
 
 #### Table of Contents
@@ -42,6 +43,7 @@ Desired features include:
 * process registration hooks (in order to support arbitrary publishing mechanisms)
 
 How processes register with a publication mechanism and how they communicate with each other (either locally or remotely) is beyond the scope of the zhang library. As an example, the Clojang library (which intends to use zhang) will provide implementation details for these -- it just needs an underlying process model amenable to its implementation goals.
+
 
 ## Documentation [&#x219F;](#table-of-contents)
 
@@ -91,3 +93,15 @@ The zhang project takes it's name from [Zhang Heng](https://en.wikipedia.org/wik
 Copyright © 2016 Duncan McGreggor
 
 Distributed under the Apache License, Version 2.0.
+
+
+<!-- Named page links below: /-->
+
+[travis]: https://travis-ci.org/clojang/zhang
+[travis-badge]: https://travis-ci.org/clojang/zhang.png?branch=master
+[deps]: http://jarkeeper.com/clojang/zhang
+[deps-badge]: http://jarkeeper.com/clojang/zhang/status.svg
+[clojars]: https://clojars.org/clojang/zhang
+[clojars-badge]: https://img.shields.io/clojars/v/clojang/zhang.svg
+[logo]: resources/images/Zhang_Heng-2-250x.png
+[logo-large]: resources/images/Zhang_Heng-2-600x.png
