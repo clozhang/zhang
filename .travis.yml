@@ -1,0 +1,11 @@
+language: clojure
+script:
+  - epmd -daemon
+  - make check-all
+jdk:
+  - oraclejdk8
+  #- openjdk8
+addons:
+  apt:
+    sources:
+      - erlang
