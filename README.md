@@ -141,7 +141,7 @@ Distributed under the Apache License, Version 2.0.
 [travis-badge]: https://travis-ci.org/clojang/zhang.png?branch=master
 [deps]: http://jarkeeper.com/clojang/zhang
 [deps-badge]: http://jarkeeper.com/clojang/zhang/status.svg
-[clojars]: https://clojars.org/clojang/zhang
-[clojars-badge]: https://img.shields.io/clojars/v/clojang/zhang.svg
+[clojars]: https://clojars.org/zhang
+[clojars-badge]: https://img.shields.io/clojars/v/zhang.svg
 [logo]: resources/images/Zhang_Heng-2-250x.png
 [logo-large]: resources/images/Zhang_Heng-2-600x.png
