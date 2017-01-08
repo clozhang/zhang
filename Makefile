@@ -10,3 +10,4 @@ clojars:
 	@lein deploy clojars
 
 include resources/make/docs.mk
+include resources/make/test.mk
