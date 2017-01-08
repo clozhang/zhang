@@ -4,7 +4,7 @@
   :url "https://github.com/clojang/zhang"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
-  :dependencies [[clojang/clojang "0.2.0-SNAPSHOT"]
+  :dependencies [[clojang "0.2.0-SNAPSHOT"]
                  [clojusc/twig "0.3.0"]
                  [dire "0.5.4"]
                  [org.clojure/clojure "1.8.0"]
