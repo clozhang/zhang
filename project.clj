@@ -1,4 +1,4 @@
-(defproject zhang "0.1.0-SNAPSHOT"
+(defproject clojang/zhang "0.1.0-SNAPSHOT"
   :description "An implementation of the Erlang process model in Clojure
                 core.async"
   :url "https://github.com/oubiwann/zhang"
