@@ -1,11 +1,13 @@
 language: clojure
 script:
-  - epmd -daemon
-  - make check-all
+- epmd -daemon
+- make check-all
 jdk:
-  - oraclejdk8
-  #- openjdk8
+- oraclejdk8
 addons:
   apt:
     sources:
-      - erlang
+    - erlang
+notifications:
+  slack:
+    secure: QLxoe5dV/pG1RJEC5MBcIWY6HdrthorPc2GXvo0IGaiAwH46Ct+mVNS/ewnQB9oBgzOJ4XTcbbOCDCf22afdMmv3Yec7B4dJP03gYKk7MkuXoIwN4SgbPUIZuC4rLSuafs50IQBUcelquH/aWGCGFXqn7N/T4AfH2W8/7XeAWjWXS5ddo0FF7gsLTAwu7oyEmdNJ/aUjfpnjneCsC+Rb0X4Leg1TDaxfjopBIZoNSGYcSUR4H921b84+zioeaC/3Mq6DFUsYcZBG1uVKufzoCLVngL0SPqdzwimrJTarZj6MbDL/reE0Qh59acVYcBk60gF4TWG4zd+eQ+qUdVKXuqtjcW7kw+JHhTTkYtVPgpBFk2mYJ7t4Cdm+xqOxL0sGEjzjiECWGPqkNPRU9d3UUs6Wgt/+qf2Tu/zL249EUt0WB49ua1WWNQJNtUgl0n1ssAv2gGTlgZAgaSmsfHgrtbqO7i8lkbB9P9kAhb3iSAW723idzgPnx0Bk6HLwTrU4gx1caaYUTEl0VfoMzcJHt+JOT2wvnGPpzCy2DbuiGANbYXVSWVmIhen94W72al0Yia9rZi+dL8+fF03jbqe03KIzXzqbffXjg/3P0gcDGRLjk9xgBdar0SJC0/AY+0YAwMl9uDcBF7ovU3yiqMjc/eO8dfPJoFoc5nemXO54h+M=
