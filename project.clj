@@ -17,7 +17,7 @@
                    :unit :unit
                    :system :system
                    :integration :integration}
-  :codox {:output-path "docs/master/current"
+  :codox {:output-path "docs/current"
           :doc-paths ["docs/source"]
           :namespaces [#"^zhang\.(?!test)"]
           :metadata {:doc/format :markdown}}
