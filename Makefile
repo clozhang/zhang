@@ -9,5 +9,5 @@ LOCAL_MAVEN := ~/.m2/repository
 clojars:
 	@lein deploy clojars
 
-include resources/make/docs.mk
-include resources/make/test.mk
+include dev-resources/make/docs.mk
+include dev-resources/make/test.mk
