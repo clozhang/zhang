@@ -19,6 +19,8 @@
                    :integration :integration}
   :codox {:output-path "docs/current"
           :doc-paths ["docs/source"]
+          :project {:name "zhang"}
+          :themes [:rdash]
           :namespaces [#"^zhang\.(?!test)"]
           :metadata {:doc/format :markdown}}
   :profiles {
