@@ -61,6 +61,11 @@ Documentation for zhang is regularly generated and made available here:
 
 * http://clojang.github.io/zhang/current
 
+Related documentation:
+
+* http://clojang.github.io/jiface/current
+* http://clojang.github.io/clojang/current
+
 
 ## Usage [&#x219F;](#table-of-contents)
 
