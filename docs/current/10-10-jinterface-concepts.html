@@ -13,15 +13,245 @@
 </ul>
 <a name="purpose">
 </a><h2><a></a><a href="#the-purpose-of-jinterface" name="the-purpose-of-jinterface"></a>The Purpose of JInterface</h2>
+<p>From the Erlang <a href="http://erlang.org/doc/apps/jinterface/jinterface_users_guide.html">JInterface User’s Guide</a>:</p>
+<p></p><blockquote>  The Jinterface package provides a set of tools for communication with Erlang  processes. It can also be used for communication with other Java processes  using the same package, as well as C processes using the Erl_Interface  library. </blockquote><p></p>
 <a name="how-it-works">
 </a><h2><a></a><a href="#how-it-works" name="how-it-works"></a>How it Works</h2>
+<p>Since the JInterface package provides a mechanism for communicating with Erlang, message recipients can be Erlang processes or instances of analogous Java objects (namely, <code>com.ericsson.otp.erlang.OtpMbox</code>). In either case, these are identified with process ids (pids) and possibly registered names.</p>
+<p>JInterface makes possible JVM-Erlang communication using the native Erlang communication protocol. It does this via JInterface Java classes which support the following:</p>
+<ul>
+  <li>manipulation of data represented as Erlang data types</li>
+  <li>conversion of data between Java and Erlang formats</li>
+  <li>encoding and decoding of Erlang data types for transmission or storage</li>
+  <li>communication between Java nodes and Erlang processes</li>
+</ul>
+<p>See the <a href="http://erlang.org/doc/apps/jinterface/jinterface_users_guide.html">JInterface User’s Guide</a> for more information on JInterface. (Note that versions of that document have been provided for both <a href="http://clojang.github.io/jiface/current/10-low-level-api.html">jiface</a> and <a href="http://clojang.github.io/clojang/current/20-mid-level-api.html">clojang</a> with example code provided using the respective library for the document.)</p>
+<p>From the documentation on the <a href="http://erlang.org/doc/apps/erts/erl_dist_protocol.html">Distribution Protocol</a> in the Erlang Run-Time System Application User’s Guide:</p>
+<p>The distribution protocol can be divided into four parts:</p>
+<ol>
+  <li>Low-level socket connection</li>
+  <li>Handshake, interchange node name</li>
+  <li>Challenge/Response</li>
+  <li>Full connection to remote node</li>
+</ol>
+<p>A typical flow through JInterface might go like the following:</p>
+<p>[More details forthcoming …]</p>
+<p>[Add a visual representation of this …]</p>
 <a name="components">
 </a><h2><a></a><a href="#the-components" name="the-components"></a>The Components</h2>
+<p>We may loosely group the JInterface components into the following categories:</p>
+<ul>
+  <li>Types</li>
+  <li>Streams</li>
+  <li>Sockets</li>
+  <li>Connections</li>
+  <li>Nodes</li>
+  <li>OTP Links</li>
+</ul>
+<p>The first two will likely remain as-is, with Zhang using them via their <code>jiface</code> or <code>clojang</code> library wrappers, while the remaining four will be reimplemented in Zhang.</p>
+<p>In the next section, we break this down by source file.</p>
+<h3><a href="#source-files" name="source-files"></a>Source Files</h3>
+<p>Here is the complete listing of the Java source files found in <code>erlang/19.3/lib/jinterface-1.7.1/java_src/com/ericsson/otp/erlang</code>:</p>
+<ul>
+  <li><code>AbstractConnection.java</code></li>
+  <li><code>AbstractNode.java</code></li>
+  <li><code>GenericQueue.java</code></li>
+  <li><code>Link.java</code></li>
+  <li><code>Links.java</code></li>
+  <li><code>OtpAuthException.java</code></li>
+  <li><code>OtpConnection.java</code></li>
+  <li><code>OtpCookedConnection.java</code></li>
+  <li><code>OtpEpmd.java</code></li>
+  <li><code>OtpErlangAtom.java</code></li>
+  <li><code>OtpErlangBinary.java</code></li>
+  <li><code>OtpErlangBitstr.java</code></li>
+  <li><code>OtpErlangBoolean.java</code></li>
+  <li><code>OtpErlangByte.java</code></li>
+  <li><code>OtpErlangChar.java</code></li>
+  <li><code>OtpErlangDecodeException.java</code></li>
+  <li><code>OtpErlangDouble.java</code></li>
+  <li><code>OtpErlangException.java</code></li>
+  <li><code>OtpErlangExit.java</code></li>
+  <li><code>OtpErlangExternalFun.java</code></li>
+  <li><code>OtpErlangFloat.java</code></li>
+  <li><code>OtpErlangFun.java</code></li>
+  <li><code>OtpErlangInt.java</code></li>
+  <li><code>OtpErlangList.java</code></li>
+  <li><code>OtpErlangLong.java</code></li>
+  <li><code>OtpErlangMap.java</code></li>
+  <li><code>OtpErlangObject.java</code></li>
+  <li><code>OtpErlangPid.java</code></li>
+  <li><code>OtpErlangPort.java</code></li>
+  <li><code>OtpErlangRangeException.java</code></li>
+  <li><code>OtpErlangRef.java</code></li>
+  <li><code>OtpErlangShort.java</code></li>
+  <li><code>OtpErlangString.java</code></li>
+  <li><code>OtpErlangTuple.java</code></li>
+  <li><code>OtpErlangUInt.java</code></li>
+  <li><code>OtpErlangUShort.java</code></li>
+  <li><code>OtpException.java</code></li>
+  <li><code>OtpExternal.java</code></li>
+  <li><code>OtpInputStream.java</code></li>
+  <li><code>OtpLocalNode.java</code></li>
+  <li><code>OtpMbox.java</code></li>
+  <li><code>OtpMD5.java</code></li>
+  <li><code>OtpMsg.java</code></li>
+  <li><code>OtpNode.java</code></li>
+  <li><code>OtpNodeStatus.java</code></li>
+  <li><code>OtpOutputStream.java</code></li>
+  <li><code>OtpPeer.java</code></li>
+  <li><code>OtpSelf.java</code></li>
+  <li><code>OtpServer.java</code></li>
+  <li><code>OtpServerSocketTransport.java</code></li>
+  <li><code>OtpServerTransport.java</code></li>
+  <li><code>OtpSocketTransportFactory.java</code></li>
+  <li><code>OtpSocketTransport.java</code></li>
+  <li><code>OtpSystem.java</code></li>
+  <li><code>OtpTransportFactory.java</code></li>
+  <li><code>OtpTransport.java</code></li>
+</ul>
+<p>We arbitrarily group these into the following:</p>
+<ul>
+  <li><em>No Change</em>
+    <ul>
+      <li>Erlang Data Types</li>
+      <li>Reading/Writing Encoded Streams</li>
+      <li>Exception Classes</li>
+      <li>Constants</li>
+    </ul>
+  </li>
+  <li><em>Will Be Replaced</em>
+    <ul>
+      <li>Sockets</li>
+      <li>EPMD &amp; Connections</li>
+      <li>Nodes</li>
+      <li>Linking</li>
+    </ul>
+  </li>
+  <li><em>Will Be Removed</em>
+    <ul>
+      <li>Interfaces</li>
+      <li>Utilities</li>
+      <li>Deprecated</li>
+    </ul>
+  </li>
+</ul>
+<p>These are broken down by file below, with more information provided.</p>
+<h4><a href="#erlang-data-types" name="erlang-data-types"></a>Erlang Data Types</h4>
+<ul>
+  <li><code>OtpErlangAtom.java</code></li>
+  <li><code>OtpErlangBinary.java</code></li>
+  <li><code>OtpErlangBitstr.java</code></li>
+  <li><code>OtpErlangBoolean.java</code></li>
+  <li><code>OtpErlangByte.java</code></li>
+  <li><code>OtpErlangChar.java</code></li>
+  <li><code>OtpErlangDouble.java</code></li>
+  <li><code>OtpErlangExit.java</code></li>
+  <li><code>OtpErlangExternalFun.java</code></li>
+  <li><code>OtpErlangFloat.java</code></li>
+  <li><code>OtpErlangFun.java</code></li>
+  <li><code>OtpErlangInt.java</code></li>
+  <li><code>OtpErlangList.java</code></li>
+  <li><code>OtpErlangLong.java</code></li>
+  <li><code>OtpErlangMap.java</code></li>
+  <li><code>OtpErlangObject.java</code></li>
+  <li><code>OtpErlangPid.java</code></li>
+  <li><code>OtpErlangPort.java</code></li>
+  <li><code>OtpErlangRef.java</code></li>
+  <li><code>OtpErlangShort.java</code></li>
+  <li><code>OtpErlangString.java</code></li>
+  <li><code>OtpErlangTuple.java</code></li>
+  <li><code>OtpErlangUInt.java</code></li>
+  <li><code>OtpErlangUShort.java</code></li>
+</ul>
+<p>For the most part we will be ignoring those; Zhang does not discard them or try to improve upon them. Rather, it makes use of them via the <code>jiface</code> and <code>clojang</code> libraries.</p>
+<h4><a href="#reading-writing-encoded-streams" name="reading-writing-encoded-streams"></a>Reading/Writing Encoded Streams</h4>
+<ul>
+  <li><code>OtpInputStream.java</code></li>
+  <li><code>OtpOutputStream.java</code></li>
+  <li><code>OtpMsg.java</code></li>
+</ul>
+<p>It is not a current high priority for Zhang development to convert these to Clojure, so like with the types, Zhang makes use of them via the <code>jiface</code> and <code>clojang</code> libraries.</p>
+<h4><a href="#exception-classes" name="exception-classes"></a>Exception Classes</h4>
+<p>These are used by the types, stream classes, and the <code>OtpMsg</code> class; as such, they will remain:</p>
+<ul>
+  <li><code>OtpAuthException.java</code></li>
+  <li><code>OtpErlangException.java</code></li>
+  <li><code>OtpErlangRangeException.java</code></li>
+  <li><code>OtpErlangDecodeException.java</code></li>
+  <li><code>OtpException.java</code></li>
+</ul>
+<h4><a href="#constants" name="constants"></a>Constants</h4>
+<p>This will likely be used in its current form:</p>
+<ul>
+  <li><code>OtpExternal.java</code></li>
+</ul>
+<h4><a href="#sockets" name="sockets"></a>Sockets</h4>
+<p>The following will be replaced using a networking framework from the JVM ecosystem:</p>
+<ul>
+  <li><code>OtpServerSocketTransport.java</code></li>
+  <li><code>OtpSocketTransportFactory.java</code></li>
+  <li><code>OtpSocketTransport.java</code></li>
+</ul>
+<h4><a href="#interfaces" name="interfaces"></a>Interfaces</h4>
+<p>These will go away when their implementations are replaced:</p>
+<ul>
+  <li><code>OtpServerTransport.java</code></li>
+  <li><code>OtpTransport.java</code></li>
+  <li><code>OtpTransportFactory.java</code></li>
+</ul>
+<h4><a href="#epmd-connections" name="epmd-connections"></a>EPMD &amp; Connections</h4>
+<ul>
+  <li><code>OtpEpmd.java</code></li>
+  <li><code>AbstractConnection.java</code></li>
+  <li><code>OtpConnection.java</code></li>
+  <li><code>OtpCookedConnection.java</code></li>
+  <li><code>GenericQueue.java</code></li>
+  <li><code>OtpMbox.java</code></li>
+</ul>
+<p><code>OtpEpmd</code> will need to be replaced when the current transport/socket code goes away. Likewise for the connection classes, which will also need to be rewritten when the <code>OtpPeer</code>, <code>OtpEpmd</code>, and OTP stream classes are replaced. The same goes for <code>OtpMbox</code>. When the connection classes are replaced, <code>GenericQueue</code> will need to go too.</p>
+<h4><a href="#nodes" name="nodes"></a>Nodes</h4>
+<ul>
+  <li><code>AbstractNode.java</code></li>
+  <li><code>OtpLocalNode.java</code></li>
+  <li><code>OtpNode.java</code></li>
+  <li><code>OtpPeer.java</code></li>
+  <li><code>OtpSelf.java</code></li>
+</ul>
+<p><code>AbstractNode</code> is actually an implementation of the <code>OtpTransportFactory</code> interface. When the transport code changes, this will likely have to as well. The rest of the classes in this list either directly or indirectly extend <code>AbstractNode</code>, so the same applies to them.</p>
+<h4><a href="#logical-linking" name="logical-linking"></a>Logical Linking</h4>
+<p><em>(between Erlang processes/JIface process objects)</em></p>
+<p>It is with these objects that one is may build up supervision trees in the JVM (or, at the very least, react to broken connections).</p>
+<ul>
+  <li><code>Link.java</code></li>
+  <li><code>Links.java</code></li>
+  <li><code>OtpNodeStatus.java</code></li>
+</ul>
+<h4><a href="#utilities" name="utilities"></a>Utilities</h4>
+<ul>
+  <li><code>OtpMD5.java</code></li>
+  <li><code>OtpSystem.java</code></li>
+</ul>
+<p>The first will be replaced (or augmented) by ecosystem libs and the latter isn’t used anywhere (so will go away).</p>
+<h4><a href="#deprecated" name="deprecated"></a>Deprecated</h4>
+<p>This will go away:</p>
+<ul>
+  <li><code>OtpServer.java</code></li>
+</ul>
 <a name="benefits">
 </a><h2><a></a><a href="#the-benefits-of-jinterface" name="the-benefits-of-jinterface"></a>The Benefits of JInterface</h2>
+<p>The primary benefit of JInterface is that it exists: an Erlang developer has taken the time to create the Java necessary to communicate with OPT nodes (both those written in Erlang and Java). Beyond mere existence, JInterface provides proven Erlang types in Java as well as the ability to write these to and read them from buffers.</p>
+<p>JInterface also provides a bit of convenience for developers who don’t live in the JVM ecosystem and just need to create a one-off application that communicates with Erlang: no dependencies. The library is self-contained.</p>
 <a name="downsides">
 </a><h2><a></a><a href="#jinterface-downsides" name="jinterface-downsides"></a>JInterface Downsides</h2>
+<p>There are several downsides to JInterface perceived by the author of Zhang. The simplicity of its lack of dependencies means that best-of-breed libraries are not being used for such things as managing queues and efficient TCP/IP communications.</p>
 <a name="jvm-pros">
 </a><h2><a></a><a href="#what-the-jvm-ecosystem-does-better" name="what-the-jvm-ecosystem-does-better"></a>What the JVM Ecosystem Does Better</h2>
+<ul>
+  <li>Sockets</li>
+  <li>Async IO</li>
+  <li>Utility libraries</li>
+</ul>
 <a name="needed">
-</a><h2><a></a><a href="#what-zhang-needs" name="what-zhang-needs"></a>What Zhang Needs</h2></div></div></div></body></html>
+</a><h2><a></a><a href="#what-zhang-needs" name="what-zhang-needs"></a>What Zhang Needs</h2>
+<p>The ability to safely create and manage many OTP nodes with low-overhead, utilizing the best of what Clojure’s <code>core.async</code> can provide as well as various support libraries from the JVM ecosystem.</p></div></div></div></body></html>
