@@ -146,7 +146,9 @@ Here is the complete listing of the Java source files found in
  * `OtpTransportFactory.java`
  * `OtpTransport.java`
 
-We arbitrarily group these into the following:
+Some of these will remain, others will be removed. Most significantly, the meat
+of the networking code will be completely replaced with something much more
+performant:
 
  * *No Change*
      * Erlang Data Types
