@@ -20,7 +20,7 @@ serve-docs: docs
 
 docs: pre-docs zhang-docs
 
-publish-docs: prod-docs
+publish-docs: docs
 	@echo "\nPublishing docs ...\n"
 	@git commit $(DOCS_DIR) -m "Updated docs."
 	@git push --all
