@@ -27,6 +27,9 @@
             [jiface.otp.messaging :as messaging]
             [jiface.otp.nodes :as nodes]
             [jiface.util :as ji-util]
+            [net.tcp :as tcp]
+            [net.ty.channel :as channel]
+            [net.ty.pipeline :as pipeline]
             [trifl.java :refer [show-methods]]))
 
 (def reload #'repl/refresh)
