@@ -14,7 +14,7 @@
 <a name="purpose">
 </a><h2><a></a><a href="#the-purpose-of-jinterface" name="the-purpose-of-jinterface"></a>The Purpose of JInterface</h2>
 <p>From the Erlang <a href="http://erlang.org/doc/apps/jinterface/jinterface_users_guide.html">JInterface User’s Guide</a>:</p>
-<p></p><blockquote>  The Jinterface package provides a set of tools for communication with Erlang  processes. It can also be used for communication with other Java processes  using the same package, as well as C processes using the Erl_Interface  library. </blockquote><p></p>
+<p></p><blockquote>  The JInterface package provides a set of tools for communication with Erlang  processes. It can also be used for communication with other Java processes  using the same package, as well as C processes using the Erl_Interface  library. </blockquote><p></p>
 <a name="how-it-works">
 </a><h2><a></a><a href="#how-it-works" name="how-it-works"></a>How it Works</h2>
 <p>Since the JInterface package provides a mechanism for communicating with Erlang, message recipients can be Erlang processes or instances of analogous Java objects (namely, <code>com.ericsson.otp.erlang.OtpMbox</code>). In either case, these are identified with process ids (pids) and possibly registered names.</p>
@@ -35,7 +35,74 @@
   <li>Full connection to remote node</li>
 </ol>
 <p>A typical flow through JInterface might go like the following:</p>
-<p>[More details forthcoming …]</p>
+<ul>
+  <li>Create a node</li>
+  <li>new <code>OtpNode</code>
+    <ul>
+      <li>create a thread to manage incoming connections</li>
+      <li>create a hash table to track all connections</li>
+      <li>create an object to track all mailboxes
+        <ul>
+          <li>track mbox pids in hash table of key=pid, val=weak ref to <code>OtpMbox</code></li>
+          <li>track mbox names in hash table of key=mbox name, val=weak ref to <code>OtpMbox</code></li>
+        </ul>
+      </li>
+      <li>set up a handler for node status changes</li>
+      <li>up-call to <code>OtpLocalNode</code> new
+        <ul>
+          <li>track pid count</li>
+          <li>track port count</li>
+          <li>up-call to <code>AbstractNode</code> new</li>
+          <li>set constants for Erlang message tags</li>
+          <li>set object default / init state (e.g., connected, socket peer,  name, etc.)</li>
+        </ul>
+      </li>
+      <li>call the OtpNode’s mailboxes collection instance’s <code>create</code> method
+        <ul>
+          <li>create an <code>OtpErlangPid</code></li>
+          <li>create an <code>OtpMbox</code>
+            <ul>
+              <li>set up mbox state data, including:</li>
+              <li>create a <code>GenericQueue</code> (FIFO)</li>
+            </ul>
+          </li>
+          <li>store a wek ref of the new mbox</li>
+          <li>return the mbox</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>register the mbox name</li>
+  <li>calls <code>registerName</code> on associated <code>OtpNode</code> instance</li>
+  <li>create an OTP message</li>
+  <li>send the message from the mbox</li>
+  <li>establish a connection (<code>getConnection</code> either finds or creates one)
+    <ul>
+      <li>remember that an <code>OtpNode</code> instance tracks all connections in a  data structure, so the first step is to do a lookup there</li>
+      <li>if there’s not one, create <code>OtpCookedConnection</code> using an  <code>OtpPeer</code> instance</li>
+      <li>call <code>send</code> on the connection object
+        <ul>
+          <li>create a new <code>OtpOutputStream</code> from the message object</li>
+          <li>call <code>sendBuf</code> using the to/from pids and the new stream</li>
+          <li>create header as new <code>OtpOutputStream</code> object</li>
+          <li>set header data</li>
+          <li>call <code>do_send</code></li>
+          <li>get ouput stream from socker</li>
+          <li>write header to it</li>
+          <li>write payload to it</li>
+          <li>flush it</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>receive a message on the mbox</li>
+  <li>get data from the mbox’s <code>GenericQueue</code> instance</li>
+  <li>cast it to an <code>OtpMsg</code></li>
+  <li>check the message type</li>
+  <li>return it</li>
+  <li>get the payload</li>
+  <li>return that</li>
+</ul>
 <p>[Add a visual representation of this …]</p>
 <a name="components">
 </a><h2><a></a><a href="#the-components" name="the-components"></a>The Components</h2>
