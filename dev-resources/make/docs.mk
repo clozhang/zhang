@@ -1,6 +1,7 @@
 .PHONY: docs
 
 ROOT_DIR = $(shell pwd)
+DOCS_SRC_DIR = $(ROOT_DIR)/resources/docs
 DOCS_DIR = $(ROOT_DIR)/docs
 REPO = $(shell git config --get remote.origin.url)
 CURRENT = $(DOCS_DIR)/current
@@ -22,5 +23,5 @@ docs: pre-docs zhang-docs
 
 publish-docs: docs
 	@echo "\nPublishing docs ...\n"
-	@git commit $(DOCS_DIR) -m "Updated docs."
+	@git commit $(DOCS_DIR) $(DOCS_SRC_DIR) -m "Updated docs."
 	@git push --all
