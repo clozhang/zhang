@@ -8,17 +8,18 @@
                  [clojusc/trifl "0.1.0-SNAPSHOT"]
                  [clojusc/twig "0.3.1"]
                  [dire "0.5.4"]
-                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojure "1.9.0-alpha16"]
                  [org.clojure/core.async "0.3.442"]
                  [org.clojure/core.match "0.3.0-alpha4"]
-                 [potemkin "0.4.3"]]
+                 [potemkin "0.4.3"]
+                 [spootnik/net "0.3.3-beta12"]]
   :plugins [[lein-simpleton "1.3.0"]]
   :test-selectors {:default :unit
                    :unit :unit
                    :system :system
                    :integration :integration}
   :codox {:output-path "docs/current"
-          :doc-paths ["docs/source"]
+          :doc-paths ["resources/docs"]
           :project {:name "zhang"}
           :themes [:rdash]
           :namespaces [#"^zhang\.(?!test)"]

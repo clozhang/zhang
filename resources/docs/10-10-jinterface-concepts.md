@@ -16,7 +16,7 @@
 From the Erlang [JInterface User's Guide](http://erlang.org/doc/apps/jinterface/jinterface_users_guide.html):
 
 <blockquote>
-  The Jinterface package provides a set of tools for communication with Erlang
+  The JInterface package provides a set of tools for communication with Erlang
   processes. It can also be used for communication with other Java processes
   using the same package, as well as C processes using the Erl_Interface
   library.
