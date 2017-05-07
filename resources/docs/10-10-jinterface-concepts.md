@@ -61,54 +61,54 @@ The distribution protocol can be divided into four parts:
 
 A typical flow through JInterface might go like the following:
 
-* Create a node
-  * new `OtpNode`
-     * create a thread to manage incoming connections
-     * create a hash table to track all connections
-     * create an object to track all mailboxes
-        * track mbox pids in hash table of key=pid, val=weak ref to `OtpMbox`
-        * track mbox names in hash table of key=mbox name, val=weak ref to `OtpMbox`
-     * set up a handler for node status changes
-     * up-call to `OtpLocalNode` new
-        * track pid count
-        * track port count
-        * up-call to `AbstractNode` new
-           * set constants for Erlang message tags
-           * set object default / init state (e.g., connected, socket peer,
+1. Create a node
+   * new `OtpNode`
+      * create a thread to manage incoming connections
+      * create a hash table to track all connections
+      * create an object to track all mailboxes
+         * track mbox pids in hash table of key=pid, val=weak ref to `OtpMbox`
+         * track mbox names in hash table of key=mbox name, val=weak ref to `OtpMbox`
+      * set up a handler for node status changes
+      * up-call to `OtpLocalNode` new
+         * track pid count
+         * track port count
+         * up-call to `AbstractNode` new
+            * set constants for Erlang message tags
+            * set object default / init state (e.g., connected, socket peer,
              name, etc.)
-     * call the OtpNode's mailboxes collection instance's `create` method
-        * create an `OtpErlangPid`
-        * create an `OtpMbox`
-            * set up mbox state data, including:
-            * create a `GenericQueue` (FIFO)
-        * store a wek ref of the new mbox
-        * return the mbox
-* register the mbox name
-  * calls `registerName` on associated `OtpNode` instance
-* create an OTP message
-* send the message from the mbox
-  * establish a connection (`getConnection` either finds or creates one)
-     * remember that an `OtpNode` instance tracks all connections in a
-       data structure, so the first step is to do a lookup there
-     * if there's not one, create `OtpCookedConnection` using an
-       `OtpPeer` instance
-     * call `send` on the connection object
-        * create a new `OtpOutputStream` from the message object
-        * call `sendBuf` using the to/from pids and the new stream
-           * create header as new `OtpOutputStream` object
-           * set header data
-        * call `do_send`
-           * get ouput stream from socker
-           * write header to it
-           * write payload to it
-           * flush it
-* receive a message on the mbox
-  * get data from the mbox's `GenericQueue` instance
-  * cast it to an `OtpMsg`
-  * check the message type
-  * return it
-  * get the payload
-  * return that
+      * call the OtpNode's mailboxes collection instance's `create` method
+         * create an `OtpErlangPid`
+         * create an `OtpMbox`
+             * set up mbox state data, including:
+             * create a `GenericQueue` (FIFO)
+         * store a wek ref of the new mbox
+         * return the mbox
+1. register the mbox name
+   * calls `registerName` on associated `OtpNode` instance
+1. create an OTP message
+1. send the message from the mbox
+   * establish a connection (`getConnection` either finds or creates one)
+      * remember that an `OtpNode` instance tracks all connections in a
+        data structure, so the first step is to do a lookup there
+      * if there's not one, create `OtpCookedConnection` using an
+        `OtpPeer` instance
+      * call `send` on the connection object
+         * create a new `OtpOutputStream` from the message object
+         * call `sendBuf` using the to/from pids and the new stream
+            * create header as new `OtpOutputStream` object
+            * set header data
+         * call `do_send`
+            * get ouput stream from socker
+            * write header to it
+            * write payload to it
+            * flush it
+1. receive a message on the mbox
+   * get data from the mbox's `GenericQueue` instance
+   * cast it to an `OtpMsg`
+   * check the message type
+   * return it
+   * get the payload
+   * return that
 
 [Add a visual representation of this ...]
 

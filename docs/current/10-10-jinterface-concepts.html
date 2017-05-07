@@ -35,8 +35,10 @@
   <li>Full connection to remote node</li>
 </ol>
 <p>A typical flow through JInterface might go like the following:</p>
-<ul>
+<ol>
   <li>Create a node</li>
+</ol>
+<ul>
   <li>new <code>OtpNode</code>
     <ul>
       <li>create a thread to manage incoming connections</li>
@@ -52,9 +54,12 @@
         <ul>
           <li>track pid count</li>
           <li>track port count</li>
-          <li>up-call to <code>AbstractNode</code> new</li>
-          <li>set constants for Erlang message tags</li>
-          <li>set object default / init state (e.g., connected, socket peer,  name, etc.)</li>
+          <li>up-call to <code>AbstractNode</code> new
+            <ul>
+              <li>set constants for Erlang message tags</li>
+              <li>set object default / init state (e.g., connected, socket peer,  name, etc.)</li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li>call the OtpNode’s mailboxes collection instance’s <code>create</code> method
@@ -72,30 +77,48 @@
       </li>
     </ul>
   </li>
+</ul>
+<ol>
   <li>register the mbox name</li>
+</ol>
+<ul>
   <li>calls <code>registerName</code> on associated <code>OtpNode</code> instance</li>
+</ul>
+<ol>
   <li>create an OTP message</li>
   <li>send the message from the mbox</li>
+</ol>
+<ul>
   <li>establish a connection (<code>getConnection</code> either finds or creates one)
     <ul>
-      <li>remember that an <code>OtpNode</code> instance tracks all connections in a  data structure, so the first step is to do a lookup there</li>
-      <li>if there’s not one, create <code>OtpCookedConnection</code> using an  <code>OtpPeer</code> instance</li>
+      <li>remember that an <code>OtpNode</code> instance tracks all connections in a data structure, so the first step is to do a lookup there</li>
+      <li>if there’s not one, create <code>OtpCookedConnection</code> using an <code>OtpPeer</code> instance</li>
       <li>call <code>send</code> on the connection object
         <ul>
           <li>create a new <code>OtpOutputStream</code> from the message object</li>
-          <li>call <code>sendBuf</code> using the to/from pids and the new stream</li>
-          <li>create header as new <code>OtpOutputStream</code> object</li>
-          <li>set header data</li>
-          <li>call <code>do_send</code></li>
-          <li>get ouput stream from socker</li>
-          <li>write header to it</li>
-          <li>write payload to it</li>
-          <li>flush it</li>
+          <li>call <code>sendBuf</code> using the to/from pids and the new stream
+            <ul>
+              <li>create header as new <code>OtpOutputStream</code> object</li>
+              <li>set header data</li>
+            </ul>
+          </li>
+          <li>call <code>do_send</code>
+            <ul>
+              <li>get ouput stream from socker</li>
+              <li>write header to it</li>
+              <li>write payload to it</li>
+              <li>flush it</li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
   </li>
+</ul>
+<ol>
   <li>receive a message on the mbox</li>
+</ol>
+<ul>
   <li>get data from the mbox’s <code>GenericQueue</code> instance</li>
   <li>cast it to an <code>OtpMsg</code></li>
   <li>check the message type</li>
