@@ -4,8 +4,7 @@
 (defrecord JifaceProcess [])
 
 (def process-behaviour
-  {:spawn (fn [])
-   :spawn! (fn [])})
+  {:spawn (fn [])})
 
 (defn create
   "Constructor for the Zhang jiface process."

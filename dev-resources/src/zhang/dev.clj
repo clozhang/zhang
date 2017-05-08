@@ -29,12 +29,12 @@
             [jiface.otp.messaging :as messaging]
             [jiface.otp.nodes :as nodes]
             [jiface.util :as ji-util]
-            [net.tcp :as tcp]
-            [net.ty.channel :as channel]
-            [net.ty.pipeline :as pipeline]
+            ; [net.tcp :as tcp]
+            ; [net.ty.channel :as channel]
+            ; [net.ty.pipeline :as pipeline]
             [trifl.java :refer [show-methods]]
             [zhang.agent :as zhang-agent]
-            [zhang.agent.processes :refer [ZhangProcessTable process-table]]
+            [zhang.agent.process-table :as process-table]
             [zhang.agent.startup :as zhang-startup]
             [zhang.process :as process]))
 

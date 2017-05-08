@@ -1,7 +1,4 @@
 (ns zhang.core
-  (:require [zhang.async :refer :all]))
-
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+  (:require [clojure.core.async :as async]
+            [clojure.pprint :refer [pprint]]
+            [zhang.process :as process]))
