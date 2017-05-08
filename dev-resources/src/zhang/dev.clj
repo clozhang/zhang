@@ -2,7 +2,8 @@
   "A development namespace that imports other useful namespaces for easy
   prototyping, &c. The intended use is for this to be the initial namespace
   when running ``lein repl`` from the Clojang project directory."
-  (:require [clojang.agent.startup :as startup]
+  (:require [clojang.agent :as clojang-agent]
+            [clojang.agent.startup :as clojang-startup]
             [clojang.caller :refer [call call!]]
             [clojang.conn :as conn]
             [clojang.core :as clojang :refer [! receive self]]
@@ -12,9 +13,10 @@
             [clojang.msg :as msg]
             [clojang.node :as node]
             [clojang.rpc :as rpc]
-            [clojang.types.converter :as converter]
             [clojang.types.core :as types]
+            [clojang.types.records :as records]
             [clojang.util :as util]
+            [clojure.core.async :as async]
             [clojure.core.match :refer [match]]
             [clojure.pprint :refer [print-table]]
             [clojure.reflect :refer [reflect]]
@@ -30,6 +32,10 @@
             [net.tcp :as tcp]
             [net.ty.channel :as channel]
             [net.ty.pipeline :as pipeline]
-            [trifl.java :refer [show-methods]]))
+            [trifl.java :refer [show-methods]]
+            [zhang.agent :as zhang-agent]
+            [zhang.agent.processes :refer [ZhangProcessTable process-table]]
+            [zhang.agent.startup :as zhang-startup]
+            [zhang.process :as process]))
 
 (def reload #'repl/refresh)
