@@ -34,8 +34,8 @@
             ; [net.ty.pipeline :as pipeline]
             [trifl.java :refer [show-methods]]
             [zhang.agent :as zhang-agent]
-            [zhang.agent.process-table :as process-table]
             [zhang.agent.startup :as zhang-startup]
-            [zhang.process :as process]))
+            [zhang.process :as process]
+            [zhang.process.table :as process-table]))
 
 (def reload #'repl/refresh)
