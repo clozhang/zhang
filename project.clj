@@ -6,7 +6,7 @@
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [
     [clojang "0.4.0-SNAPSHOT"]
-    [clojang/zhang-agent "0.1.0-SNAPSHOT"]
+    [clojang/zhang-agent "0.2.0-SNAPSHOT"]
     [clojusc/trifl "0.1.0-SNAPSHOT"]
     [clojusc/twig "0.3.1"]
     [dire "0.5.4"]
@@ -62,5 +62,5 @@
         ;"-Dheadless"
         "-splash:resources/images/logo-5-250x.png"
         "-Dnode.sname=zhang"]
-      :java-agents [[clojang/zhang-agent "0.1.0-SNAPSHOT"]]
+      :java-agents [[clojang/zhang-agent "0.2.0-SNAPSHOT"]]
       :repl-options {:init-ns zhang.dev}}})

@@ -13,7 +13,7 @@
 
 (defn terminate
   [this]
-  (process-table/remove-process (:id this))
+  (process-table/remove (:id this))
   (dissoc this :id :fun :chan)
   nil)
 
@@ -41,7 +41,7 @@
   (let [chan (async/chan)]
     (async/go-loop [f fun]
       (recur (f (async/<! chan))))
-    (process-table/add-process
+    (process-table/add
       (create-process fun chan))))
 
 (def process-factory-behaviour
