@@ -9,13 +9,13 @@
 
 (defn snd
   [this msg]
-  (async/put! (:chan this) msg))
+  (async/put! (:chan this) msg)
+  :ok)
 
 (defn terminate
   [this]
   (process-table/remove (:id this))
-  (dissoc this :id :fun :chan)
-  nil)
+  :terminated)
 
 (def process-behaviour
   {:id #(:id %)
