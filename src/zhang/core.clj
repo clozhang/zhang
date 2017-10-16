@@ -1,5 +1,4 @@
-(ns zhang.core
-  (:require [zhang.async :refer :all]))
+(ns zhang.core)
 
 (defn foo
   "I don't do a whole lot."
