@@ -1,4 +1,4 @@
-(defproject zhang "0.1.0-SNAPSHOT"
+(defproject clozhang/zhang "0.1.0-SNAPSHOT"
   :description "An implementation of π-Calculus in Clojure"
   :url "https://github.com/clozhang/zhang"
   :license {
