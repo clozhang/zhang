@@ -16,7 +16,6 @@
 * [Usage](#usage-)
 * [Background](#background-)
   * [Origins](#origins-)
-  * [Erlang, JInterface, & Clojang](#erlang-jinterface--clojang-)
   * [Akka/Okku & Quasar/Pulsar](#akkaokku--quasarpulsar-)
   * [A Note on the Name](#a-note-on-the-name-)
 * [License](#license-)
@@ -50,7 +49,7 @@ Desired features include:
 
 How processes register with a publication mechanism and how they communicate
 with each other (either locally or remotely) is beyond the scope of the zhang
-library. As an example, the Clojang library (which intends to use zhang) will
+library. As an example, the Clozhang library (which intends to use zhang) will
 provide implementation details for these -- it just needs an underlying
 process model amenable to its implementation goals.
 
@@ -59,12 +58,12 @@ process model amenable to its implementation goals.
 
 Documentation for zhang is regularly generated and made available here:
 
-* http://clojang.github.io/zhang/current
+* http://clozhang.github.io/zhang/current
 
 Related documentation:
 
-* http://clojang.github.io/jiface/current
-* http://clojang.github.io/clojang/current
+* http://clozhang.github.io/jiface/current
+* http://clozhang.github.io/clozhang/current
 
 
 ## Usage [&#x219F;](#table-of-contents)
@@ -80,40 +79,42 @@ TBD
 ### Origins [&#x219F;](#table-of-contents)
 
 The zhang project came about, like so many software projects, through the
-time-honored process of yak-shaving. The particular yak that spawned zhang was
-associated with the [Clojang](https://github.com/clojang/clojang) project,
-which in turn was a yak-shaving response to Erlang's [JInterface](http://erlan
-g.org/doc/apps/jinterface/jinterface_users_guide.html) (in particular the
-desire to have a low-level Clojure-idiomatic wrapper for JInterface).
+time-honored process of yak-shaving. The particular yak that spawned
+zhang was associated with the
+[Clojang](https://github.com/clojang/clojang) project, which in turn was
+a yak-shaving response to Erlang's
+[JInterface](http://erlang.org/doc/apps/jinterface/jinterface_users_guide.html)
+(in particular the desire to have a low-level Clojure-idiomatic wrapper
+for JInterface).
 
-One of the issues that arose when working on Clojang was the number of threads
-created when connecting nodes and the lack of light-weight (non-OS) processes
-for creating Clojure servers that communicate with Erlang processes. This
-limits the number of nodes that can be created and doesn't really allow
-programmers to fully explore the power of Erlang's processing model on the
-JVM. (In all fairness, this was never the intent of JInterface; instead, it is
-a Java translation of
+One of the issues that arose when working on Clozhang was the number of
+threads created when connecting nodes and the lack of light-weight
+(non-OS) processes for creating Clojure servers that communicate with
+Erlang processes. This limits the number of nodes that can be created and
+doesn't really allow programmers to fully explore the power of Erlang's
+processing model on the JVM. (In all fairness, this was never the intent
+of JInterface; instead, it is a Java translation of
 [Erlang Ports](http://erlang.org/doc/reference_manual/ports.html),
 allowing basic interoperability between Java and Erlang programs.)
 
 To work around this, we wanted to create servers in Clojure using the
 core.async library, which brings light-weight, non-OS processes to Clojure
 programmers. The core.async library was inspired by Tony Hoare's work on
-communicating sequential processes (CSP) originally described in a 1978 paper.
-That paper (and significant subsequent work) influenced the design of
-concurrency in the C# language as well as the concurrency model used in the Go
-programming language. Both of these heavily influenced the design and
-implementation of core.async in Clojure.
+communicating sequential processes (CSP) originally described in a 1978
+paper. That paper (and significant subsequent work) influenced the design
+of concurrency in the C# language as well as the concurrency model used
+in the Go programming language. Both of these heavily influenced the
+design and implementation of core.async in Clojure.
 
-And this is the purpose of zhang: to build a close approximation of the Erlang
-process model using the channels, messages, ``go`` blocks, etc., of Clojure's
-core.async library -- thus allowing us to create highly scalable, concurrent
-applications in Clojure.
+While CSP offers a time-honored and performance-proven approach for
+local process execution, it doesn't offer one for distribted execution.
+As such, Clojure doesn't have a native solution for distributed process
+execution and communication either. This is where the π-calculi come in.
 
+[Add notes about the process calculi here.]
 
-### Erlang, JInterface, & Clojang [&#x219F;](#table-of-contents)
-
-TBD
+And this is the purpose of zhang: to provide one possible solution to just
+this gap.
 
 
 ### Akka/Okku & Quasar/Pulsar [&#x219F;](#table-of-contents)
@@ -142,10 +143,10 @@ Distributed under the Apache License, Version 2.0.
 
 <!-- Named page links below: /-->
 
-[travis]: https://travis-ci.org/clojang/zhang
-[travis-badge]: https://travis-ci.org/clojang/zhang.png?branch=master
-[deps]: http://jarkeeper.com/clojang/zhang
-[deps-badge]: http://jarkeeper.com/clojang/zhang/status.svg
+[travis]: https://travis-ci.org/clozhang/zhang
+[travis-badge]: https://travis-ci.org/clozhang/zhang.png?branch=master
+[deps]: http://jarkeeper.com/clozhang/zhang
+[deps-badge]: http://jarkeeper.com/clozhang/zhang/status.svg
 [clojars]: https://clojars.org/zhang
 [clojars-badge]: https://img.shields.io/clojars/v/zhang.svg
 [logo]: resources/images/Zhang_Heng-2-250x.png
