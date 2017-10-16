@@ -1,56 +1,59 @@
 (defproject zhang "0.1.0-SNAPSHOT"
-  :description "An implementation of the Erlang process model in Clojure
-                core.async"
-  :url "https://github.com/clojang/zhang"
-  :license {:name "Apache License, Version 2.0"
-            :url "http://www.apache.org/licenses/LICENSE-2.0"}
-  :dependencies [[clojang "0.4.0-SNAPSHOT"]
-                 [clojusc/trifl "0.1.0-SNAPSHOT"]
-                 [clojusc/twig "0.3.1"]
-                 [dire "0.5.4"]
-                 [org.clojure/clojure "1.9.0-alpha16"]
-                 [org.clojure/core.async "0.3.442"]
-                 [org.clojure/core.match "0.3.0-alpha4"]
-                 [potemkin "0.4.3"]
-                 [spootnik/net "0.3.3-beta12"]]
+  :description "An implementation of π-Calculus in Clojure"
+  :url "https://github.com/clozhang/zhang"
+  :license {
+    :name "Apache License, Version 2.0"
+    :url "http://www.apache.org/licenses/LICENSE-2.0"}
+  :exclusions [org.clojure/clojure]
+  :dependencies [
+    [clojusc/trifl "0.2.0"]
+    [clojusc/twig "0.3.2"]
+    [org.clojure/clojure "1.8.0"]]
   :plugins [[lein-simpleton "1.3.0"]]
-  :test-selectors {:default :unit
-                   :unit :unit
-                   :system :system
-                   :integration :integration}
-  :codox {:output-path "docs/current"
-          :doc-paths ["resources/docs"]
-          :project {:name "zhang"}
-          :themes [:rdash]
-          :namespaces [#"^zhang\.(?!test)"]
-          :metadata {:doc/format :markdown}}
   :profiles {
-    :uberjar {
-      :aot :all}
-    :docs {
-      :aot :all
-      :dependencies [[codox-theme-rdash "0.1.2"]]
-      :plugins [
-        [lein-codox "0.10.3"]
-        [lein-simpleton "1.3.0"]]}
-    :testing {
-      :aot :all
-      :dependencies [
-        [clojusc/trifl "0.1.0-SNAPSHOT"]]
-      :plugins [
-        [lein-ancient "0.6.10"]
-        [jonase/eastwood "0.2.3" :exclusions [org.clojure/clojure]]
-        [lein-bikeshed "0.4.1"]
-        [lein-kibit "0.1.4" :exclusions [org.clojure/clojure]]
-        [venantius/yagni "0.1.4"]]
-      :source-paths ["test"]
-      :test-selectors {
-        :default :unit
-        :unit :unit
-        :system :system
-        :integration :integration}}
     :dev {
       :dependencies [
         [org.clojure/tools.namespace "0.2.11"]]
       :source-paths ["dev-resources/src"]
-      :repl-options {:init-ns zhang.dev}}})
+      :repl-options {:init-ns zhang.dev}}
+    :test {
+      :test-selectors {
+        :default :unit
+        :unit :unit
+        :system :system
+        :integration :integration}
+      :plugins [
+        [lein-ancient "0.6.12"]
+        [jonase/eastwood "0.2.5"]
+        [lein-bikeshed "0.5.0"]
+        [lein-kibit "0.1.5"]
+        [venantius/yagni "0.1.4"]]}
+    :ubercompile {:aot :all}
+    :docs {
+      :dependencies [
+        [clozhang/codox-theme "0.1.0-SNAPSHOT"]]
+      :plugins [
+        [lein-codox "0.10.3"]
+        [lein-simpleton "1.3.0"]]
+      :codox {
+        :output-path "docs/current"
+        :doc-paths ["resources/docs"]
+        :project {:name "zhang"}
+        :themes [:clozhang]
+        :namespaces [#"^zhang\.(?!test)"]
+          :metadata {:doc/format :markdown}}}}
+  :aliases {
+    "check-deps"
+      ["with-profile" "+test" "ancient" "check" ":all"]
+    "ubercompile"
+      ["with-profile" "+ubercompile" "compile"]
+    "docs"
+      ["with-profile" "+docs" "codox"]
+    "build"
+      ["do" ["check"]
+            ["check-deps"]
+            ["docs"]
+            ["ubercompile"]
+            ["clean"]
+            ["test"]
+            ["uberjar"]]})
