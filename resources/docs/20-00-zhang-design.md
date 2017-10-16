@@ -66,7 +66,7 @@ process and distribution model.
 
 * Much of this already exists
 * Supporting functions
-   * Use `clojang.epmd`
+   * Use `clozhang.epmd`
    * Add `erl`-like feature that starts `epmd` if it's not running
 
 

@@ -1,3 +1,0 @@
-#  • Motivation for JVM-based network IO
-
-Content forthcoming ...

@@ -1,3 +1,0 @@
-#  • Motivation for Clojure-native async operations
-
-Content forthcoming ...
