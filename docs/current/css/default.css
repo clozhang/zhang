@@ -6,12 +6,12 @@ body {
 }
 
 a {
-    color: #337ab7;
+    color: #292f33;
     text-decoration: none;
 }
 
 a:hover {
-    color: #30426a;
+    color: #1f2429;
     text-decoration: underline;
 }
 
@@ -60,9 +60,11 @@ h3 > a:hover {
     right: 0;
     bottom: 0;
     overflow: auto;
-    background: #fff;
+    background: #eee;
     color: #333;
     padding: 0 18px;
+    padding-top: 1em;
+    padding-left: 1em;
 }
 
 .sidebar {
@@ -70,19 +72,19 @@ h3 > a:hover {
     top: 32px;
     bottom: 0;
     overflow: auto;
+    color: white;
 }
 
 .sidebar.primary {
-    background: #30426a;
-    border-right: solid 1px #cccccc;
+    background: #1f2429;
+    border-right: solid 1px #1f2429;
     left: 0;
     width: 250px;
-    color: white;
     font-size: 110%;
 }
 
 .sidebar.secondary {
-    background: #f2f2f2;
+    background: #292f33;
     border-right: solid 1px #d7d7d7;
     left: 251px;
     width: 200px;
@@ -99,10 +101,11 @@ h3 > a:hover {
 
 #content.document {
     padding-bottom: 10%;
+    left: 200px;
 }
 
 #header {
-    background: #2d3e63;
+    background: #d16519;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
     z-index: 100;
 }
@@ -112,7 +115,6 @@ h3 > a:hover {
     padding: 0;
     font-size: 18px;
     font-weight: lighter;
-    text-shadow: -1px -1px 0px #333;
 }
 
 #header h1 .project-version {
@@ -132,20 +134,13 @@ h3 > a:hover {
     color: #f5f5f5;
 }
 
-.sidebar.primary, .sidebar.primary a {
+.sidebar.primary, .sidebar.primary a,
+.sidebar.secondary, .sidebar.secondary a {
     color: #b2bfdc;
 }
 
-.sidebar.primary a:hover {
+.sidebar.primary a:hover, .sidebar.secondary a:hover {
     color: white;
-}
-
-.sidebar.secondary, .sidebar.secondary a {
-    color: #738bc0;
-}
-
-.sidebar.secondary a:hover {
-    color: #2d3e63;
 }
 
 #header h2 {
@@ -168,16 +163,10 @@ h3 > a:hover {
     font-weight: lighter;
 }
 
-.sidebar.primary h3.no-link {
+.sidebar.primary h3.no-link, .sidebar.secondary h3 a {
     text-transform: uppercase;
     font-size: 12px;
     color: #738bc0;
-}
-
-.sidebar.secondary h3 a {
-    text-transform: uppercase;
-    font-size: 12px;
-    color: #2d3e63;
 }
 
 .sidebar ul {
@@ -251,14 +240,10 @@ h3 > a:hover {
     border-left: 1px solid #aaa;
 }
 
-.sidebar.primary li.current a {
-    border-left: 3px solid #e99d1a;
-    color: white;
-}
-
+.sidebar.primary li.current a,
 .sidebar.secondary li.current a {
-    border-left: 3px solid #2d3e63;
-    color: #33a;
+    border-left: 3px solid #ff8c00;
+    color: white;
 }
 
 .namespace-index h2 {
@@ -279,6 +264,10 @@ h3 > a:hover {
 .namespace-index .topics {
     padding-left: 30px;
     margin: 11px 0 0 0;
+}
+
+ul.topics {
+    list-style-type: none;
 }
 
 .namespace-index .topics li {
@@ -600,6 +589,8 @@ blockquote {
     left: initial !important;
     top: 110px;
     padding: 0 1em;
+    padding-top: 1em;
+    padding-left: 1em;
   }
 
   #header {
